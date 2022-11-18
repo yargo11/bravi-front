@@ -47,42 +47,47 @@ export default function Home() {
   }, [])
 
 
-  function validarSuportes(n: number | 0) {
+  function validarSuportes() {
 
     const suporteArray = suportes.split('')
     console.log('Fora do For', suporteArray)
 
+    let aux = suporteArray.length
+    let aux2 = suporteArray.length
 
-    for (let i = n; i <= suporteArray.length; i++) {
-      if (
-        suporteArray.length > 0 &&
-        (
-          (suporteArray[i] === '{' && suporteArray[i + 1] === '}') ||
-          (suporteArray[i] === '[' && suporteArray[i + 1] === ']') ||
-          (suporteArray[i] === '(' && suporteArray[i + 1] === ')')
-        )
-      ) {
-        console.log('1111')
-        suporteArray.splice(i, 2)
-        console.log('Dentro do For', suporteArray)
-        setSuportes(suporteArray.join(''))
+    while (aux > 0) {
+      for (let i = 0; i <= suporteArray.length; i++) {
+        if (
+          suporteArray.length > 0 &&
+          (
+            (suporteArray[i] === '{' && suporteArray[i + 1] === '}') ||
+            (suporteArray[i] === '[' && suporteArray[i + 1] === ']') ||
+            (suporteArray[i] === '(' && suporteArray[i + 1] === ')')
+          )
+        ) {
+          suporteArray.splice(i, 2)
+          console.log('Dentro do For', suporteArray)
+          setSuportes(suporteArray.join(''))
 
+        }
+
+        else if (suporteArray.length === 0) {
+          alert("Sequência Válida")
+          return console.log("Sucesso")
+        }
       }
-      else if (suporteArray.length > 0) {
-        validarSuportes(i + 1)
+
+      aux--
+
+      if (aux2 === suporteArray.length) {
         alert("Sequência Inválida")
-        return console.log("Falha")
-      }
-      else if (suporteArray.length === 0) {
-        alert("Sequência Válida")
-        return console.log("Sucesso")
+        return console.log("ERROU")
       }
 
+      aux2 = suporteArray.length
     }
 
-    if (suporteArray.length > 0) {
 
-    }
   }
 
   const handleInputChange = (e: React.FormEvent<HTMLInputElement>, index: number) => {
